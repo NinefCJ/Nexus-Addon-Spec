@@ -1,15 +1,20 @@
 # Nexus Addon Spec
 
-Nexus 命令助手拓展包格式规范与开发指南。
+Nexus 命令助手拓展包格式规范与完整开发指南。
 
 ## 目录
 
 - [快速开始](#快速开始)
-- [文档](#文档)
-- [示例](#示例)
-- [格式校验](#格式校验)
+- [📚 文档体系](#-文档体系)
+- [📦 示例](#-示例)
+- [🛠️ 格式校验](#️-格式校验)
+- [📁 项目结构](#-项目结构)
+- [版本](#版本)
 - [贡献](#贡献)
+- [相关项目](#相关项目)
 - [许可证](#许可证)
+
+---
 
 ## 快速开始
 
@@ -17,82 +22,163 @@ Nexus 命令助手拓展包格式规范与开发指南。
 
 拓展包是一个 JSON 文件，可以扩展 Nexus 命令助手的数据与功能。通过拓展包，你可以添加自定义的：
 
-- 🧱 方块 ID 与翻译
-- 🛠️ 物品 ID 与翻译
-- 🔊 音效 ID 与翻译
-- ✨ 粒子 ID 与翻译
-- ⚡ 快捷命令
-- 📝 命令模板
+| 类型 | 说明 | 补全场景 |
+|------|------|----------|
+| 🧱 方块 | 自定义方块 ID 与翻译 | `/setblock` `/fill` `/clone` |
+| ⚔️ 物品 | 自定义物品 ID 与翻译 | `/give` `/replaceitem` `/clear` |
+| 🔊 音效 | 自定义音效 ID 与翻译 | `/playsound` `/stopsound` |
+| ✨ 粒子 | 自定义粒子 ID 与翻译 | `/particle` |
+| ⚡ 快捷命令 | 一键插入的常用命令 | 快捷命令面板 |
+| 📝 命令模板 | 可复用的命令模板 | 命令库 |
 
-### 我想创建拓展包
+### 5 分钟创建第一个拓展包
 
-1. 复制 [examples/template.json](examples/template.json)
-2. 按照你的需求修改内容
-3. 在 Nexus 中导入使用
+```json
+{
+  "id": "your_name.my_first_addon",
+  "name": "我的第一个拓展包",
+  "version": "1.0.0",
+  "author": "你的名字",
+  "description": "这是我的第一个 Nexus 拓展包",
+  "items": [
+    {
+      "id": "custom:ruby_sword",
+      "name": "红宝石剑",
+      "category": "武器",
+      "description": "一把由红宝石打造的神剑"
+    }
+  ],
+  "commands": [
+    {
+      "id": "give_ruby_sword",
+      "command": "/give @s custom:ruby_sword",
+      "name": "获得红宝石剑",
+      "description": "给予自己一把红宝石剑",
+      "category": "道具"
+    }
+  ]
+}
+```
 
-详细教程请查看 [开发指南](docs/DEVELOPMENT.md)。
+保存为 `.json` 文件，在 Nexus 中导入即可使用。
 
-### 我想了解格式规范
+### 下一步？
 
-完整的格式规范请查看 [SPEC.md](docs/SPEC.md)。
+- 📖 想系统学习？→ 阅读 [开发指南](docs/DEVELOPMENT.md)
+- 📋 想了解所有字段？→ 查看 [格式规范](docs/SPEC.md)
+- 🐛 遇到问题？→ 参考 [调试与测试指南](docs/DEBUGGING.md)
+- 🚀 想发布分享？→ 参考 [发布与版本管理](docs/PUBLISHING.md)
 
-## 文档
+---
 
-| 文档 | 说明 |
-|------|------|
-| [格式规范](docs/SPEC.md) | 详细的字段说明、格式要求、命名规范 |
-| [开发指南](docs/DEVELOPMENT.md) | 开发工作流、最佳实践、调试方法、常见问题 |
+## 📚 文档体系
 
-## 示例
+我们提供了完整的文档，覆盖从入门到发布的全流程：
 
-| 示例文件 | 说明 |
-|----------|------|
-| [template.json](examples/template.json) | 空白模板，包含所有字段结构 |
-| [minimal.json](examples/minimal.json) | 最小可行示例 |
-| [basic-example.json](examples/basic-example.json) | 完整示例，包含所有类型的内容 |
+| 文档 | 适用人群 | 内容概览 |
+|------|----------|----------|
+| **[开发指南](docs/DEVELOPMENT.md)** | 所有开发者 | 完整的四阶段开发工作流、最佳实践、VS Code 配置 |
+| **[格式规范](docs/SPEC.md)** | 需要深入了解格式的开发者 | 详细的字段说明、类型定义、命名规范、JSON Schema |
+| **[调试与测试指南](docs/DEBUGGING.md)** | 遇到问题的开发者 | 常见错误排查、完整测试清单、性能测试、兼容性测试 |
+| **[发布与版本管理](docs/PUBLISHING.md)** | 准备发布的开发者 | 语义化版本规范、发布流程、更新日志编写、GitHub 发布指南 |
 
-## 格式校验
+### 文档关系图
+
+```
+入门 → 开发指南（DEVELOPMENT.md）
+                ↓
+        ┌───────┴───────┐
+        ↓               ↓
+   格式规范         调试与测试
+  （SPEC.md）    （DEBUGGING.md）
+        ↓               ↓
+        └───────┬───────┘
+                ↓
+          发布与版本管理
+         （PUBLISHING.md）
+```
+
+---
+
+## 📦 示例
+
+| 示例文件 | 说明 | 适合场景 |
+|----------|------|----------|
+| [template.json](examples/template.json) | 空白模板，包含所有字段结构 | 从零开始创建 |
+| [minimal.json](examples/minimal.json) | 最小可行示例，只含必填字段 | 了解最小结构 |
+| [basic-example.json](examples/basic-example.json) | 完整示例，包含所有类型的内容 | 学习各种用法 |
+
+---
+
+## 🛠️ 格式校验
 
 本仓库提供 [JSON Schema](schema/addon.schema.json)，可用于自动化校验拓展包格式。
 
-### 使用方法
+### VS Code 中使用
 
-**VS Code 中使用：**
+**方法一：在 JSON 文件中指定 Schema**
 
-在 JSON 文件顶部添加：
 ```json
 {
   "$schema": "https://raw.githubusercontent.com/NinefCJ/Nexus-Addon-Spec/main/schema/addon.schema.json",
+  "id": "your.addon",
   ...
 }
 ```
 
-**在线校验：**
+**方法二：全局配置**
+
+在 VS Code 设置中添加：
+
+```json
+{
+  "json.schemas": [
+    {
+      "fileMatch": ["*.addon.json", "addon.json"],
+      "url": "https://raw.githubusercontent.com/NinefCJ/Nexus-Addon-Spec/main/schema/addon.schema.json"
+    }
+  ]
+}
+```
+
+配置后可以获得：
+- ✅ 实时语法校验
+- ✅ 字段智能提示
+- ✅ 鼠标悬停查看说明
+
+### 在线校验
 
 使用 [JSON Schema Validator](https://www.jsonschemavalidator.net/) 等在线工具。
 
-**命令行校验：**
+### 命令行校验
 
 使用 `ajv` 等工具：
+
 ```bash
 npx ajv-cli validate -s schema/addon.schema.json -d your-addon.json
 ```
 
-## 项目结构
+---
+
+## 📁 项目结构
 
 ```
 Nexus-Addon-Spec/
 ├── docs/
-│   ├── SPEC.md          # 格式规范文档
-│   └── DEVELOPMENT.md   # 开发指南
+│   ├── SPEC.md            # 格式规范文档
+│   ├── DEVELOPMENT.md     # 开发指南（完整工作流）
+│   ├── DEBUGGING.md       # 调试与测试指南
+│   └── PUBLISHING.md      # 发布与版本管理
 ├── examples/
-│   ├── template.json    # 空白模板
-│   ├── minimal.json     # 最小示例
-│   └── basic-example.json  # 完整示例
+│   ├── template.json      # 空白模板
+│   ├── minimal.json       # 最小示例
+│   └── basic-example.json # 完整示例
 ├── schema/
-│   └── addon.schema.json    # JSON Schema
+│   └── addon.schema.json  # JSON Schema 验证文件
 └── README.md
 ```
+
+---
 
 ## 版本
 
@@ -103,6 +189,9 @@ Nexus-Addon-Spec/
 - **v1.0.0** (2026-06-27)
   - 初始版本
   - 支持方块、物品、音效、粒子、命令、模板
+  - 完整的开发、调试、发布文档体系
+
+---
 
 ## 贡献
 
@@ -115,9 +204,14 @@ Nexus-Addon-Spec/
 
 请在 [Issues](https://github.com/NinefCJ/Nexus-Addon-Spec/issues) 中反馈。
 
+---
+
 ## 相关项目
 
 - [Nexus](https://github.com/NinefCJ/Nexus) - Nexus 命令助手主项目
+- [Nexus-Addon-Spec](https://github.com/NinefCJ/Nexus-Addon-Spec) - 拓展包规范（本仓库）
+
+---
 
 ## 许可证
 
