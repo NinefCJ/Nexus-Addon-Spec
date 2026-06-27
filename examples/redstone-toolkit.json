@@ -1,0 +1,75 @@
+{
+  "id": "example.redstone_toolkit",
+  "name": "红石工具包",
+  "description": "实用的红石相关命令和模板集合，帮助快速搭建红石电路",
+  "version": "1.2.0",
+  "author": "RedstoneMaster",
+  "commands": [
+    {
+      "id": "rs:clock_setblock",
+      "command": "/setblock ~ ~-1 ~ redstone_block 0 destroy",
+      "name": "红石脉冲",
+      "description": "快速生成红石脉冲信号",
+      "category": "红石"
+    },
+    {
+      "id": "rs:lamp_array",
+      "command": "/fill ~ ~ ~ ~9 ~ ~ redstone_lamp",
+      "name": "红石灯阵",
+      "description": "生成一排红石灯",
+      "category": "红石"
+    },
+    {
+      "id": "rs:repeater_line",
+      "command": "/fill ~ ~ ~ ~15 ~ ~ unpowered_repeater",
+      "name": "中继器线",
+      "description": "生成一排红石中继器",
+      "category": "红石"
+    },
+    {
+      "id": "rs:redstone_line",
+      "command": "/fill ~ ~ ~ ~20 ~ ~ redstone_wire",
+      "name": "红石线",
+      "description": "生成一排红石线",
+      "category": "红石"
+    },
+    {
+      "id": "rs:lever_switch",
+      "command": "/setblock ~ ~-1 ~ lever 0",
+      "name": "拉杆",
+      "description": "在脚下放置拉杆",
+      "category": "红石"
+    },
+    {
+      "id": "rs:button_wall",
+      "command": "/setblock ~ ~ ~-1 stone_button 0",
+      "name": "按钮",
+      "description": "在前方放置石按钮",
+      "category": "红石"
+    }
+  ],
+  "templates": [
+    {
+      "id": "rs:piston_door_2x2",
+      "command": "/fill ~ ~ ~ ~1 ~1 ~1 piston",
+      "name": "2x2活塞门",
+      "description": "基础2x2活塞门结构",
+      "category": "红石"
+    },
+    {
+      "id": "rs:redstone_clock",
+      "command": "/setblock ~ ~ ~ hopper 0\n/setblock ~ ~1 ~ comparator 0",
+      "name": "漏斗时钟",
+      "description": "漏斗+比较器时钟",
+      "category": "红石"
+    }
+  ],
+  "blocks": [
+    {
+      "id": "custom:advanced_piston",
+      "name": "高级活塞",
+      "category": "红石",
+      "description": "推动距离更远的高级活塞"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "id": "your_name.your_addon_id",
+  "name": "你的拓展包名称",
+  "description": "拓展包简短描述（最多200字）",
+  "version": "1.0.0",
+  "author": "你的名字",
+  "blocks": [
+    {
+      "id": "custom:example_block",
+      "name": "示例方块",
+      "category": "建筑",
+      "description": "这是一个示例方块"
+    }
+  ],
+  "items": [
+    {
+      "id": "custom:example_item",
+      "name": "示例物品",
+      "category": "工具",
+      "description": "这是一个示例物品"
+    }
+  ],
+  "sounds": [
+    {
+      "id": "custom:example.sound",
+      "name": "示例音效",
+      "category": "其他",
+      "description": "这是一个示例音效",
+      "volume": "1",
+      "pitch": "1"
+    }
+  ],
+  "particles": [
+    {
+      "id": "custom:example_particle",
+      "name": "示例粒子",
+      "category": "效果",
+      "description": "这是一个示例粒子效果",
+      "hasColor": true
+    }
+  ],
+  "commands": [
+    {
+      "id": "custom:example_command",
+      "command": "/say Hello Nexus",
+      "name": "示例命令",
+      "description": "这是一个示例快捷命令",
+      "category": "其他"
+    }
+  ],
+  "templates": [
+    {
+      "id": "custom:example_template",
+      "command": "/fill ~ ~ ~ ~5 ~5 ~5 stone",
+      "name": "示例模板",
+      "description": "这是一个示例命令模板",
+      "category": "建筑"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "id": "example.minimal",
+  "name": "最简示例",
+  "version": "1.0.0",
+  "author": "Nexus Team",
+  "description": "最小可行的拓展包示例，只包含必填字段和一条命令"
+}
