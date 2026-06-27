@@ -62,51 +62,51 @@ Nexus 命令助手拓展包格式规范与完整开发指南。
 
 保存为 `.json` 文件，在 Nexus 中导入即可使用。
 
-### 下一步？
+### 下一步去哪看？
 
-- 📖 想系统学习？→ 阅读 [开发指南](docs/DEVELOPMENT.md)
-- 📋 想了解所有字段？→ 查看 [格式规范](docs/SPEC.md)
-- 🐛 遇到问题？→ 参考 [调试与测试指南](docs/DEBUGGING.md)
-- 🚀 想发布分享？→ 参考 [发布与版本管理](docs/PUBLISHING.md)
+| 你想... | 去看这篇 |
+|---------|----------|
+| 📖 系统学习开发 | [开发指南](docs/DEVELOPMENT.md) |
+| 📋 了解所有字段 | [格式规范](docs/SPEC.md) |
+| 🐛 遇到问题了 | [调试指南](docs/DEBUGGING.md) |
+| 🚀 准备发布了 | [发布指南](docs/PUBLISHING.md) |
 
 ---
 
 ## 📚 文档体系
 
-我们提供了完整的文档，覆盖从入门到发布的全流程：
+完整的四篇文档，覆盖从入门到发布的全流程：
 
-| 文档 | 适用人群 | 内容概览 |
-|------|----------|----------|
-| **[开发指南](docs/DEVELOPMENT.md)** | 所有开发者 | 完整的四阶段开发工作流、最佳实践、VS Code 配置 |
-| **[格式规范](docs/SPEC.md)** | 需要深入了解格式的开发者 | 详细的字段说明、类型定义、命名规范、JSON Schema |
-| **[调试与测试指南](docs/DEBUGGING.md)** | 遇到问题的开发者 | 常见错误排查、完整测试清单、性能测试、兼容性测试 |
-| **[发布与版本管理](docs/PUBLISHING.md)** | 准备发布的开发者 | 语义化版本规范、发布流程、更新日志编写、GitHub 发布指南 |
+| 文档 | 适合谁 | 主要内容 |
+|------|--------|----------|
+| [开发指南](docs/DEVELOPMENT.md) | 所有开发者 | 四阶段工作流、最佳实践、VS Code 配置 |
+| [格式规范](docs/SPEC.md) | 想深入了解格式 | 字段说明、命名规范、JSON Schema |
+| [调试指南](docs/DEBUGGING.md) | 遇到问题时 | 常见错误排查、完整测试清单 |
+| [发布指南](docs/PUBLISHING.md) | 准备发布时 | 版本规范、发布流程、更新日志 |
 
-### 文档关系图
+### 学习路径
 
 ```
-入门 → 开发指南（DEVELOPMENT.md）
-                ↓
-        ┌───────┴───────┐
-        ↓               ↓
-   格式规范         调试与测试
-  （SPEC.md）    （DEBUGGING.md）
-        ↓               ↓
-        └───────┬───────┘
-                ↓
-          发布与版本管理
-         （PUBLISHING.md）
+入门 → 开发指南
+        ↓
+   ┌────┴────┐
+   ↓         ↓
+ 格式规范  调试指南
+   ↓         ↓
+   └────┬────┘
+        ↓
+     发布指南
 ```
 
 ---
 
 ## 📦 示例
 
-| 示例文件 | 说明 | 适合场景 |
-|----------|------|----------|
-| [template.json](examples/template.json) | 空白模板，包含所有字段结构 | 从零开始创建 |
-| [minimal.json](examples/minimal.json) | 最小可行示例，只含必填字段 | 了解最小结构 |
-| [basic-example.json](examples/basic-example.json) | 完整示例，包含所有类型的内容 | 学习各种用法 |
+| 文件 | 说明 | 适用场景 |
+|------|------|----------|
+| [template.json](examples/template.json) | 空白模板，含所有字段 | 从零开始 |
+| [minimal.json](examples/minimal.json) | 最小可行示例 | 了解结构 |
+| [basic-example.json](examples/basic-example.json) | 完整示例，含所有类型 | 学习用法 |
 
 ---
 
