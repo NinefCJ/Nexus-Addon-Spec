@@ -69,7 +69,7 @@ Nexus 拓展包使用 **JSON** 格式定义，用于扩展 Nexus 命令助手的
 - 格式要求：小写字母、数字、下划线，可用 `.` 分隔层级
 - 长度：2 - 64 字符
 - 推荐使用反向域名格式：`com.yourname.addonname`
-- 示例：`com.example.magic_items`, `redstone_toolkit`
+- 示例：`com.example.magic_items`, `custom.addon_name`
 
 #### `name`
 

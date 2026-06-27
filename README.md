@@ -50,7 +50,6 @@ Nexus 命令助手拓展包格式规范与开发指南。
 | [template.json](examples/template.json) | 空白模板，包含所有字段结构 |
 | [minimal.json](examples/minimal.json) | 最小可行示例 |
 | [basic-example.json](examples/basic-example.json) | 完整示例，包含所有类型的内容 |
-| [redstone-toolkit.json](examples/redstone-toolkit.json) | 红石工具包示例 |
 
 ## 格式校验
 
@@ -89,8 +88,7 @@ Nexus-Addon-Spec/
 ├── examples/
 │   ├── template.json    # 空白模板
 │   ├── minimal.json     # 最小示例
-│   ├── basic-example.json  # 完整示例
-│   └── redstone-toolkit.json # 红石工具包
+│   └── basic-example.json  # 完整示例
 ├── schema/
 │   └── addon.schema.json    # JSON Schema
 └── README.md
