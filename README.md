@@ -28,8 +28,22 @@ Nexus 命令助手拓展包格式规范与完整开发指南。
 | ⚔️ 物品 | 自定义物品 ID 与翻译 | `/give` `/replaceitem` `/clear` |
 | 🔊 音效 | 自定义音效 ID 与翻译 | `/playsound` `/stopsound` |
 | ✨ 粒子 | 自定义粒子 ID 与翻译 | `/particle` |
+| 🎬 动画 | 自定义动画 ID 与翻译 | `/playanimation` |
 | ⚡ 快捷命令 | 一键插入的常用命令 | 快捷命令面板 |
 | 📝 命令模板 | 可复用的命令模板 | 命令库 |
+| 📚 命令库 | 完整的自定义命令和枚举 | 命令补全 |
+| 🧩 方块状态 | 方块状态属性定义 | 状态提示 |
+| 📋 JSON Schema | NBT/JSON 结构校验 | 智能提示 |
+
+### 拓展包类型
+
+| 类型 | 难度 | 适用人群 |
+|------|------|----------|
+| 简易拓展包 (simple) | ⭐ 入门 | 普通玩家 |
+| 命令库拓展 (commandLib) | ⭐⭐⭐ 进阶 | 模组/服务器开发者 |
+| 方块状态拓展 (blockStates) | ⭐⭐ 进阶 | 模组开发者 |
+| JSON Schema 拓展 (jsonSchema) | ⭐⭐⭐⭐ 高级 | 高级开发者 |
+| 完整拓展包 (full) | ⭐⭐⭐⭐⭐ 专家 | 大型团队 |
 
 ### 5 分钟创建第一个拓展包
 
@@ -100,6 +114,8 @@ Nexus 命令助手拓展包格式规范与完整开发指南。
 | [template.json](examples/template.json) | 空白模板，含所有字段 | 从零开始 |
 | [minimal.json](examples/minimal.json) | 最小可行示例 | 了解结构 |
 | [basic-example.json](examples/basic-example.json) | 完整示例，含所有类型 | 学习用法 |
+| [command-lib-example.json](examples/command-lib-example.json) | 命令库类型示例 | 进阶开发 |
+| [block-states-example.json](examples/block-states-example.json) | 方块状态类型示例 | 进阶开发 |
 
 ---
 
@@ -163,9 +179,11 @@ Nexus-Addon-Spec/
 │   ├── DEBUGGING.md       # 调试与测试指南
 │   └── PUBLISHING.md      # 发布与版本管理
 ├── examples/
-│   ├── template.json      # 空白模板
-│   ├── minimal.json       # 最小示例
-│   └── basic-example.json # 完整示例
+│   ├── template.json              # 空白模板
+│   ├── minimal.json               # 最小示例
+│   ├── basic-example.json         # 完整示例
+│   ├── command-lib-example.json   # 命令库示例
+│   └── block-states-example.json  # 方块状态示例
 ├── schema/
 │   └── addon.schema.json  # JSON Schema 验证文件
 └── README.md
@@ -175,9 +193,20 @@ Nexus-Addon-Spec/
 
 ## 版本
 
-规范版本：**v1.1.0**
+规范版本：**v2.0.0**
 
 ### 版本历史
+
+- **v2.0.0** (2026-06-27)
+  - 新增动画支持（`animations` 字段）
+  - 新增拓展包类型系统（5种类型：simple/commandLib/blockStates/jsonSchema/full）
+  - 新增 UUID 唯一标识符
+  - 新增依赖管理（`require` 字段）
+  - 新增标签系统（`tags` 字段）
+  - 新增命令库、方块状态、JSON Schema 支持
+  - 完善各类内容的高级属性
+  - 新增命令库和方块状态示例文件
+  - 更新所有文档至 v2.0 规范
 
 - **v1.1.0** (2026-06-27)
   - 新增调试与测试指南

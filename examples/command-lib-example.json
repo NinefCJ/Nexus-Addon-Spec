@@ -1,0 +1,47 @@
+{
+  "$schema": "https://raw.githubusercontent.com/NinefCJ/Nexus-Addon-Spec/main/schema/addon.schema.json",
+  "id": "example.command_lib",
+  "uuid": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+  "name": "命令库示例拓展包",
+  "description": "展示命令库类型拓展包的示例，包含 idlist 分类和 enums 枚举数据",
+  "version": "1.0.0",
+  "author": "Nexus Team",
+  "icon": "",
+  "packType": "commandLib",
+  "tags": ["示例", "命令库", "进阶"],
+  "idlist": [
+    {
+      "name": "自定义物品",
+      "list": "custom_items"
+    },
+    {
+      "name": "自定义方块",
+      "list": "custom_blocks"
+    },
+    {
+      "name": "自定义实体",
+      "list": "custom_entities"
+    }
+  ],
+  "enums": {
+    "custom_items": {
+      "custom:ruby_sword": "红宝石剑",
+      "custom:magic_wand": "魔法魔杖",
+      "custom:healing_potion": "治疗药水",
+      "custom:fire_essence": "火焰精华",
+      "custom:ice_crystal": "冰霜水晶"
+    },
+    "custom_blocks": {
+      "custom:ruby_block": "红宝石块",
+      "custom:magic_glass": "魔法玻璃",
+      "custom:crystal_ore": "水晶矿石",
+      "custom:machine_furnace": "机器熔炉",
+      "custom:energy_cable": "能量线缆"
+    },
+    "custom_entities": {
+      "custom:fire_dragon": "火龙",
+      "custom:ice_golem": "冰霜傀儡",
+      "custom:magic_spirit": "魔法精灵"
+    }
+  }
+}

@@ -1,15 +1,24 @@
 {
+  "$schema": "https://raw.githubusercontent.com/NinefCJ/Nexus-Addon-Spec/main/schema/addon.schema.json",
   "id": "your_name.your_addon_id",
+  "uuid": "00000000-0000-0000-0000-000000000000",
   "name": "你的拓展包名称",
-  "description": "拓展包简短描述（最多200字）",
+  "description": "拓展包简短描述",
   "version": "1.0.0",
   "author": "你的名字",
+  "icon": "",
+  "packType": "simple",
+  "require": [],
   "blocks": [
     {
       "id": "custom:example_block",
       "name": "示例方块",
       "category": "建筑",
-      "description": "这是一个示例方块"
+      "description": "这是一个示例方块",
+      "hardness": 1.5,
+      "resistance": 3.0,
+      "lightLevel": 0,
+      "tags": ["example", "block"]
     }
   ],
   "items": [
@@ -17,7 +26,10 @@
       "id": "custom:example_item",
       "name": "示例物品",
       "category": "工具",
-      "description": "这是一个示例物品"
+      "description": "这是一个示例物品",
+      "maxStack": 64,
+      "rarity": "common",
+      "tags": ["example", "item"]
     }
   ],
   "sounds": [
@@ -27,7 +39,10 @@
       "category": "其他",
       "description": "这是一个示例音效",
       "volume": "1",
-      "pitch": "1"
+      "pitch": "1",
+      "minVolume": "0",
+      "soundCategory": "player",
+      "tags": ["example", "sound"]
     }
   ],
   "particles": [
@@ -36,7 +51,31 @@
       "name": "示例粒子",
       "category": "效果",
       "description": "这是一个示例粒子效果",
-      "hasColor": true
+      "hasColor": true,
+      "params": [
+        {
+          "name": "speed",
+          "type": "float",
+          "default": "1.0",
+          "description": "粒子速度"
+        }
+      ],
+      "tags": ["example", "particle"]
+    }
+  ],
+  "animations": [
+    {
+      "id": "custom:example.animation",
+      "name": "示例动画",
+      "category": "其他",
+      "description": "这是一个示例动画",
+      "targetType": "entity",
+      "defaultController": "",
+      "duration": 1.0,
+      "blendOutTime": "0.2",
+      "nextState": "",
+      "stopExpression": "",
+      "tags": ["example", "animation"]
     }
   ],
   "commands": [
@@ -45,7 +84,8 @@
       "command": "/say Hello Nexus",
       "name": "示例命令",
       "description": "这是一个示例快捷命令",
-      "category": "其他"
+      "category": "其他",
+      "tags": ["example", "command"]
     }
   ],
   "templates": [
@@ -54,7 +94,8 @@
       "command": "/fill ~ ~ ~ ~5 ~5 ~5 stone",
       "name": "示例模板",
       "description": "这是一个示例命令模板",
-      "category": "建筑"
+      "category": "建筑",
+      "tags": ["example", "template"]
     }
   ]
 }

@@ -1,27 +1,43 @@
 {
+  "$schema": "https://raw.githubusercontent.com/NinefCJ/Nexus-Addon-Spec/main/schema/addon.schema.json",
   "id": "example.basic_addon",
+  "uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   "name": "基础示例拓展包",
   "description": "展示拓展包基本结构的示例，包含各种类型的自定义内容",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "author": "Nexus Team",
+  "icon": "",
+  "packType": "simple",
+  "tags": ["示例", "基础", "教程"],
   "blocks": [
     {
       "id": "custom:ruby_block",
       "name": "红宝石块",
       "category": "建筑",
-      "description": "由红宝石制成的装饰方块"
+      "description": "由红宝石制成的装饰方块",
+      "hardness": 5.0,
+      "resistance": 30.0,
+      "lightLevel": 15,
+      "tags": ["装饰", "红宝石"]
     },
     {
       "id": "custom:crystal_ore",
       "name": "水晶矿石",
       "category": "自然",
-      "description": "深山中的神秘水晶矿"
+      "description": "深山中的神秘水晶矿",
+      "hardness": 3.0,
+      "resistance": 15.0,
+      "tags": ["矿石", "水晶"]
     },
     {
       "id": "custom:magic_glass",
       "name": "魔法玻璃",
       "category": "装饰",
-      "description": "会发光的魔法玻璃"
+      "description": "会发光的魔法玻璃",
+      "hardness": 0.3,
+      "resistance": 1.5,
+      "lightLevel": 7,
+      "tags": ["装饰", "透明"]
     }
   ],
   "items": [
@@ -29,19 +45,28 @@
       "id": "custom:ruby_sword",
       "name": "红宝石剑",
       "category": "武器",
-      "description": "锋利的红宝石制成的剑"
+      "description": "锋利的红宝石制成的剑",
+      "maxStack": 1,
+      "rarity": "uncommon",
+      "tags": ["武器", "红宝石"]
     },
     {
       "id": "custom:magic_wand",
       "name": "魔法魔杖",
       "category": "工具",
-      "description": "可以释放魔法的魔杖"
+      "description": "可以释放魔法的魔杖",
+      "maxStack": 1,
+      "rarity": "rare",
+      "tags": ["工具", "魔法"]
     },
     {
       "id": "custom:healing_potion",
       "name": "治疗药水",
       "category": "食物",
-      "description": "恢复生命值的神奇药水"
+      "description": "恢复生命值的神奇药水",
+      "maxStack": 16,
+      "rarity": "common",
+      "tags": ["药水", "治疗"]
     }
   ],
   "sounds": [
@@ -51,7 +76,10 @@
       "category": "魔法",
       "description": "神奇的魔法音效",
       "volume": "1",
-      "pitch": "1.2"
+      "pitch": "1.2",
+      "minVolume": "0",
+      "soundCategory": "player",
+      "tags": ["魔法", "铃声"]
     },
     {
       "id": "custom:explosion.magic",
@@ -59,7 +87,10 @@
       "category": "魔法",
       "description": "魔法爆炸音效",
       "volume": "0.8",
-      "pitch": "1"
+      "pitch": "1",
+      "minVolume": "0",
+      "soundCategory": "ambient",
+      "tags": ["魔法", "爆炸"]
     }
   ],
   "particles": [
@@ -68,14 +99,66 @@
       "name": "星星闪光",
       "category": "魔法",
       "description": "闪亮的星星粒子效果",
-      "hasColor": true
+      "hasColor": true,
+      "params": [
+        {
+          "name": "count",
+          "type": "integer",
+          "default": "10",
+          "description": "粒子数量"
+        },
+        {
+          "name": "speed",
+          "type": "float",
+          "default": "0.1",
+          "description": "粒子速度"
+        }
+      ],
+      "tags": ["魔法", "闪光"]
     },
     {
       "id": "custom:magic_dust",
       "name": "魔法粉末",
       "category": "魔法",
       "description": "漂浮的魔法粉末",
-      "hasColor": true
+      "hasColor": true,
+      "tags": ["魔法", "粉末"]
+    }
+  ],
+  "animations": [
+    {
+      "id": "custom:attack.heavy",
+      "name": "重击攻击",
+      "category": "攻击动作",
+      "description": "沉重的攻击动画",
+      "targetType": "player",
+      "defaultController": "minecraft:player.biome_placement",
+      "duration": 0.8,
+      "blendOutTime": "0.2",
+      "nextState": "idle",
+      "stopExpression": "!query.modifier_movement_speed.1",
+      "tags": ["攻击", "玩家"]
+    },
+    {
+      "id": "custom:emote.wave",
+      "name": "挥手表情",
+      "category": "表情动作",
+      "description": "友好的挥手动作",
+      "targetType": "player",
+      "defaultController": "minecraft:player.biome_placement",
+      "duration": 2.0,
+      "blendOutTime": "0.3",
+      "tags": ["表情", "玩家"]
+    },
+    {
+      "id": "custom:idle.magic_float",
+      "name": "魔法漂浮",
+      "category": "待机动作",
+      "description": "漂浮的待机动画",
+      "targetType": "entity",
+      "duration": 4.0,
+      "blendOutTime": "0.2",
+      "tags": ["待机", "魔法"]
     }
   ],
   "commands": [
@@ -84,21 +167,24 @@
       "command": "/effect @s levitation 10 1 true",
       "name": "飞行效果",
       "description": "给玩家10秒的漂浮效果",
-      "category": "实用"
+      "category": "实用",
+      "tags": ["效果", "飞行"]
     },
     {
       "id": "custom:heal_self",
       "command": "/effect @s instant_health 1 2",
       "name": "自我治疗",
       "description": "立即恢复大量生命值",
-      "category": "实用"
+      "category": "实用",
+      "tags": ["治疗", "效果"]
     },
     {
       "id": "custom:night_vision",
       "command": "/effect @s night_vision 600 1 true",
       "name": "夜视效果",
       "description": "获得10分钟夜视效果",
-      "category": "实用"
+      "category": "实用",
+      "tags": ["效果", "夜视"]
     }
   ],
   "templates": [
@@ -107,14 +193,16 @@
       "command": "/fill ~-5 ~ ~-5 ~5 ~5 ~5 stone hollow",
       "name": "快速造房",
       "description": "快速生成一个石屋框架",
-      "category": "建筑"
+      "category": "建筑",
+      "tags": ["建筑", "房屋"]
     },
     {
       "id": "custom:sphere_template",
       "command": "/fill ~-5 ~-5 ~-5 ~5 ~5 ~5 stone",
       "name": "立方体",
       "description": "生成一个实心立方体",
-      "category": "建筑"
+      "category": "建筑",
+      "tags": ["建筑", "立方体"]
     }
   ]
 }

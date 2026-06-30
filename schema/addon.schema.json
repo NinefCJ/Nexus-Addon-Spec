@@ -1,47 +1,164 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Nexus Addon Pack",
-  "description": "Nexus命令助手拓展包格式规范 v1.0.0",
+  "description": "Nexus命令助手拓展包格式规范 v2.0.0",
   "type": "object",
-  "required": ["id", "name", "version", "author"],
-  "additionalProperties": false,
+  "required": ["name", "author", "version"],
+  "additionalProperties": true,
   "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "JSON Schema 引用地址，用于编辑器智能提示",
+      "format": "uri"
+    },
+    "$注释": {
+      "type": "string",
+      "description": "注释内容，不会被程序解析，用于开发者备注"
+    },
     "id": {
       "type": "string",
-      "description": "拓展包唯一标识符，使用反向域名或命名空间格式",
+      "description": "拓展包唯一标识符，使用反向域名或命名空间格式（简易拓展包可选）",
       "pattern": "^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)*$",
       "minLength": 2,
       "maxLength": 64,
       "examples": ["com.example.myaddon", "my_addon_pack"]
     },
+    "uuid": {
+      "type": "string",
+      "description": "拓展包 UUID 唯一标识符（高级拓展包推荐使用）",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    },
     "name": {
       "type": "string",
       "description": "拓展包显示名称",
       "minLength": 1,
-      "maxLength": 32
+      "maxLength": 64
     },
     "description": {
       "type": "string",
-      "description": "拓展包描述",
+      "description": "拓展包描述，说明拓展包的功能和内容",
       "default": "",
-      "maxLength": 200
+      "maxLength": 1000
     },
     "version": {
-      "type": "string",
-      "description": "语义化版本号 (MAJOR.MINOR.PATCH)",
-      "pattern": "^\\d+\\.\\d+\\.\\d+$",
-      "examples": ["1.0.0", "2.1.3"]
+      "oneOf": [
+        {
+          "type": "string",
+          "description": "语义化版本号字符串 (MAJOR.MINOR.PATCH)",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$",
+          "examples": ["1.0.0", "2.1.3"]
+        },
+        {
+          "type": "array",
+          "description": "语义化版本号数组 [MAJOR, MINOR, PATCH]",
+          "items": { "type": "integer", "minimum": 0 },
+          "minItems": 3,
+          "maxItems": 3,
+          "examples": [[1, 0, 0], [2, 1, 3]]
+        }
+      ]
     },
     "author": {
       "type": "string",
       "description": "作者名称",
       "minLength": 1,
-      "maxLength": 32
+      "maxLength": 64
     },
     "icon": {
       "type": "string",
-      "description": "图标名称（预留字段）",
+      "description": "图标名称或路径（预留字段）",
       "default": ""
+    },
+    "require": {
+      "type": "array",
+      "description": "依赖的其他拓展包 UUID 或 ID 列表",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "packType": {
+      "type": "string",
+      "description": "拓展包类型",
+      "enum": ["simple", "commandLib", "blockStates", "jsonSchema", "full"],
+      "default": "simple"
+    },
+    "tags": {
+      "type": "array",
+      "description": "拓展包标签列表，用于分类和搜索",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "idlist": {
+      "type": "array",
+      "description": "ID 列表分类定义（命令库类型拓展包使用）",
+      "items": {
+        "type": "object",
+        "required": ["name", "list"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "分类显示名称"
+          },
+          "list": {
+            "type": "string",
+            "description": "对应的 enums 键名"
+          }
+        }
+      }
+    },
+    "enums": {
+      "type": "object",
+      "description": "枚举值定义（命令库类型拓展包使用），键为枚举名，值为 ID-名称 映射对象",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": { "type": "string" }
+      }
+    },
+    "jsonSchema": {
+      "type": "object",
+      "description": "JSON Schema 定义集合（JSON Schema 类型拓展包使用），键为 Schema 名称，值为 Schema 定义"
+    },
+    "states": {
+      "type": "object",
+      "description": "方块状态定义集合（方块状态类型拓展包使用）",
+      "properties": {
+        "block": {
+          "type": "array",
+          "description": "方块状态定义列表",
+          "items": {
+            "type": "object",
+            "properties": {
+              "context": {
+                "type": "array",
+                "description": "适用的方块 ID 列表",
+                "items": { "type": "string" }
+              },
+              "schema": {
+                "type": "object",
+                "description": "方块状态 Schema 定义",
+                "additionalProperties": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "状态名称（中文）"
+                    },
+                    "type": {
+                      "type": "string",
+                      "description": "状态值类型",
+                      "enum": ["enum", "int", "bool", "string"]
+                    },
+                    "list": {
+                      "type": "object",
+                      "description": "枚举值映射（当 type 为 enum 时），键为值，值为中文说明",
+                      "additionalProperties": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "blocks": {
       "type": "array",
@@ -67,6 +184,12 @@
       "items": { "$ref": "#/definitions/particle" },
       "default": []
     },
+    "animations": {
+      "type": "array",
+      "description": "自定义动画列表",
+      "items": { "$ref": "#/definitions/animation" },
+      "default": []
+    },
     "commands": {
       "type": "array",
       "description": "自定义快捷命令列表",
@@ -84,93 +207,132 @@
     "block": {
       "type": "object",
       "required": ["id", "name"],
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "id": {
           "type": "string",
           "description": "方块ID（命名空间:名称）",
-          "pattern": "^[a-z][a-z0-9_]*:[a-z][a-z0-9_]*$",
+          "pattern": "^[a-z][a-z0-9_]*:[a-z][a-z0-9_/]*$",
           "examples": ["minecraft:stone", "custom:ruby_block"]
         },
         "name": {
           "type": "string",
           "description": "方块中文名称",
           "minLength": 1,
-          "maxLength": 32
+          "maxLength": 64
         },
         "category": {
           "type": "string",
           "description": "分类名称",
           "default": "其他",
-          "maxLength": 16
+          "maxLength": 32
         },
         "description": {
           "type": "string",
           "description": "方块描述",
           "default": "",
-          "maxLength": 100
+          "maxLength": 200
+        },
+        "hardness": {
+          "type": "number",
+          "description": "硬度值"
+        },
+        "resistance": {
+          "type": "number",
+          "description": "爆炸抗性"
+        },
+        "lightLevel": {
+          "type": "integer",
+          "description": "光照等级 (0-15)",
+          "minimum": 0,
+          "maximum": 15
+        },
+        "tags": {
+          "type": "array",
+          "description": "标签列表",
+          "items": { "type": "string" }
         }
       }
     },
     "item": {
       "type": "object",
       "required": ["id", "name"],
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "id": {
           "type": "string",
           "description": "物品ID（命名空间:名称）",
-          "pattern": "^[a-z][a-z0-9_]*:[a-z][a-z0-9_]*$",
+          "pattern": "^[a-z][a-z0-9_]*:[a-z][a-z0-9_/]*$",
           "examples": ["minecraft:diamond_sword", "custom:magic_wand"]
         },
         "name": {
           "type": "string",
           "description": "物品中文名称",
           "minLength": 1,
-          "maxLength": 32
+          "maxLength": 64
         },
         "category": {
           "type": "string",
           "description": "分类名称",
           "default": "其他",
-          "maxLength": 16
+          "maxLength": 32
         },
         "description": {
           "type": "string",
           "description": "物品描述",
           "default": "",
-          "maxLength": 100
+          "maxLength": 200
+        },
+        "maxStack": {
+          "type": "integer",
+          "description": "最大堆叠数",
+          "minimum": 1,
+          "maximum": 64
+        },
+        "rarity": {
+          "type": "string",
+          "description": "稀有度",
+          "enum": ["common", "uncommon", "rare", "epic"]
+        },
+        "damage": {
+          "type": "integer",
+          "description": "耐久度/攻击力（取决于物品类型）"
+        },
+        "tags": {
+          "type": "array",
+          "description": "标签列表",
+          "items": { "type": "string" }
         }
       }
     },
     "sound": {
       "type": "object",
       "required": ["id", "name"],
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "id": {
           "type": "string",
-          "description": "音效ID（命名空间:名称）",
-          "pattern": "^[a-z][a-z0-9_.]*:[a-z][a-z0-9_.]*$",
+          "description": "音效ID（命名空间:路径）",
+          "pattern": "^[a-z][a-z0-9_.]*:[a-z][a-z0-9_./]*$",
           "examples": ["minecraft:block.note_block.harp", "custom:magic_chime"]
         },
         "name": {
           "type": "string",
           "description": "音效中文名称",
           "minLength": 1,
-          "maxLength": 32
+          "maxLength": 64
         },
         "category": {
           "type": "string",
           "description": "分类名称",
           "default": "其他",
-          "maxLength": 16
+          "maxLength": 32
         },
         "description": {
           "type": "string",
           "description": "音效描述",
           "default": "",
-          "maxLength": 100
+          "maxLength": 200
         },
         "volume": {
           "type": "string",
@@ -181,49 +343,153 @@
           "type": "string",
           "description": "默认音调",
           "default": "1"
+        },
+        "minVolume": {
+          "type": "string",
+          "description": "最小音量",
+          "default": "0"
+        },
+        "soundCategory": {
+          "type": "string",
+          "description": "音效分类（游戏内声音设置分类）",
+          "enum": ["master", "music", "record", "weather", "block", "hostile", "friendly", "player", "ambient", "voice"]
+        },
+        "tags": {
+          "type": "array",
+          "description": "标签列表",
+          "items": { "type": "string" }
         }
       }
     },
     "particle": {
       "type": "object",
       "required": ["id", "name"],
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "id": {
           "type": "string",
           "description": "粒子ID（命名空间:名称）",
-          "pattern": "^[a-z][a-z0-9_]*:[a-z][a-z0-9_]*$",
+          "pattern": "^[a-z][a-z0-9_]*:[a-z][a-z0-9_/]*$",
           "examples": ["minecraft:heart", "custom:star_sparkle"]
         },
         "name": {
           "type": "string",
           "description": "粒子中文名称",
           "minLength": 1,
-          "maxLength": 32
+          "maxLength": 64
         },
         "category": {
           "type": "string",
           "description": "分类名称",
           "default": "其他",
-          "maxLength": 16
+          "maxLength": 32
         },
         "description": {
           "type": "string",
           "description": "粒子描述",
           "default": "",
-          "maxLength": 100
+          "maxLength": 200
         },
         "hasColor": {
           "type": "boolean",
           "description": "是否支持颜色参数",
           "default": true
+        },
+        "params": {
+          "type": "array",
+          "description": "粒子参数列表",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string", "description": "参数名称" },
+              "type": {
+                "type": "string",
+                "description": "参数类型",
+                "enum": ["int", "float", "string", "vec3", "color"]
+              },
+              "default": { "type": "string", "description": "默认值" },
+              "description": { "type": "string", "description": "参数描述" }
+            }
+          }
+        },
+        "tags": {
+          "type": "array",
+          "description": "标签列表",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "animation": {
+      "type": "object",
+      "required": ["id", "name"],
+      "additionalProperties": true,
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "动画ID（命名空间:名称）",
+          "pattern": "^[a-z][a-z0-9_]*:[a-z][a-z0-9_./]*$",
+          "examples": ["minecraft:player.move", "custom:magic_spell_cast"]
+        },
+        "name": {
+          "type": "string",
+          "description": "动画中文名称",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "category": {
+          "type": "string",
+          "description": "分类名称",
+          "default": "其他",
+          "maxLength": 32
+        },
+        "description": {
+          "type": "string",
+          "description": "动画描述",
+          "default": "",
+          "maxLength": 200
+        },
+        "targetType": {
+          "type": "string",
+          "description": "动画作用目标类型",
+          "enum": ["player", "entity", "block", "all"],
+          "default": "entity"
+        },
+        "defaultController": {
+          "type": "string",
+          "description": "默认动画控制器名称",
+          "default": ""
+        },
+        "duration": {
+          "type": "number",
+          "description": "动画持续时间（秒）",
+          "minimum": 0
+        },
+        "blendOutTime": {
+          "type": "string",
+          "description": "默认淡出时间",
+          "default": "0.2"
+        },
+        "nextState": {
+          "type": "string",
+          "description": "动画结束后的下一个状态",
+          "default": ""
+        },
+        "stopExpression": {
+          "type": "string",
+          "description": "停止表达式",
+          "default": ""
+        },
+        "tags": {
+          "type": "array",
+          "description": "标签列表",
+          "items": { "type": "string" }
         }
       }
     },
     "savedCommand": {
       "type": "object",
       "required": ["id", "command", "name"],
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "id": {
           "type": "string",
@@ -237,25 +503,40 @@
           "description": "命令内容（以/开头）",
           "pattern": "^/.*$",
           "minLength": 2,
-          "maxLength": 500
+          "maxLength": 2000
         },
         "name": {
           "type": "string",
           "description": "命令显示名称",
           "minLength": 1,
-          "maxLength": 32
+          "maxLength": 64
         },
         "description": {
           "type": "string",
           "description": "命令描述",
           "default": "",
-          "maxLength": 100
+          "maxLength": 200
         },
         "category": {
           "type": "string",
           "description": "分类名称",
           "default": "其他",
-          "maxLength": 16
+          "maxLength": 32
+        },
+        "icon": {
+          "type": "string",
+          "description": "图标名称（预留）",
+          "default": ""
+        },
+        "permissions": {
+          "type": "array",
+          "description": "所需权限等级",
+          "items": { "type": "string" }
+        },
+        "tags": {
+          "type": "array",
+          "description": "标签列表",
+          "items": { "type": "string" }
         }
       }
     }

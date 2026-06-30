@@ -1,0 +1,112 @@
+{
+  "$schema": "https://raw.githubusercontent.com/NinefCJ/Nexus-Addon-Spec/main/schema/addon.schema.json",
+  "id": "example.block_states",
+  "uuid": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+  "name": "方块状态示例拓展包",
+  "description": "展示方块状态类型拓展包的示例，包含自定义方块的状态定义",
+  "version": "1.0.0",
+  "author": "Nexus Team",
+  "icon": "",
+  "packType": "blockStates",
+  "tags": ["示例", "方块状态", "进阶"],
+  "states": {
+    "block": [
+      {
+        "context": ["custom:machine_furnace"],
+        "schema": {
+          "facing": {
+            "name": "朝向",
+            "type": "enum",
+            "list": {
+              "north": "北",
+              "south": "南",
+              "east": "东",
+              "west": "西"
+            }
+          },
+          "lit": {
+            "name": "燃烧中",
+            "type": "bool"
+          },
+          "tier": {
+            "name": "等级",
+            "type": "enum",
+            "list": {
+              "basic": "基础",
+              "advanced": "高级",
+              "elite": "精英"
+            }
+          }
+        }
+      },
+      {
+        "context": ["custom:energy_cable"],
+        "schema": {
+          "north": {
+            "name": "北侧连接",
+            "type": "enum",
+            "list": {
+              "none": "无",
+              "normal": "普通",
+              "forced": "强制"
+            }
+          },
+          "south": {
+            "name": "南侧连接",
+            "type": "enum",
+            "list": {
+              "none": "无",
+              "normal": "普通",
+              "forced": "强制"
+            }
+          },
+          "east": {
+            "name": "东侧连接",
+            "type": "enum",
+            "list": {
+              "none": "无",
+              "normal": "普通",
+              "forced": "强制"
+            }
+          },
+          "west": {
+            "name": "西侧连接",
+            "type": "enum",
+            "list": {
+              "none": "无",
+              "normal": "普通",
+              "forced": "强制"
+            }
+          },
+          "up": {
+            "name": "上侧连接",
+            "type": "enum",
+            "list": {
+              "none": "无",
+              "normal": "普通",
+              "forced": "强制"
+            }
+          },
+          "down": {
+            "name": "下侧连接",
+            "type": "enum",
+            "list": {
+              "none": "无",
+              "normal": "普通",
+              "forced": "强制"
+            }
+          }
+        }
+      },
+      {
+        "context": ["custom:crop_blueberry"],
+        "schema": {
+          "age": {
+            "name": "生长阶段",
+            "type": "int"
+          }
+        }
+      }
+    ]
+  }
+}
